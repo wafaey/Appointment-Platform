@@ -653,3 +653,10 @@ section {
   flex-direction: column;
   margin-bottom: 20px;
 }
+.appointmentInputs {
+  justify-content: space-evenly;
+  margin: 2%;
+  .MuiFormControl-root {
+    width: 20%;
+  }
+}
