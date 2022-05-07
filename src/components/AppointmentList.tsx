@@ -35,6 +35,7 @@ const AppointmentList = (props) => {
   return (
     <>
       <div className="search__input">
+        <label>Search: </label>
         <input
           type="text"
           value={searchText}
