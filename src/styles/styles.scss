@@ -653,6 +653,10 @@ section {
   flex-direction: column;
   margin-bottom: 20px;
 }
+.search__input {
+  display: flex;
+  justify-content: center;
+}
 .appointmentInputs {
   justify-content: space-evenly;
   margin: 2%;
