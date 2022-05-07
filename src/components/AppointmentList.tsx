@@ -2,11 +2,14 @@ import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, Typography } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import { AccountCircle } from '@material-ui/icons';
+import { Practitioner, Appointment } from 'utils/date';
 
 const getTimeSlotDatacy = (id: string) => `timeslot-${id}`;
-
-const AppointmentList = (props) => {
-  const { appointments, practitioners } = props;
+type Props = {
+  appointments: Appointment[];
+  practitioners: Practitioner[];
+};
+const AppointmentList = ({ appointments, practitioners }: Props) => {
   const [searchText, setSearchText] = useState('');
   const [filteredAppointments, setFilteredAppointments] = useState(
     appointments,
@@ -60,7 +63,9 @@ const AppointmentList = (props) => {
                   >
                     Practitioner name:
                     {practitioners.map((practitioner) => {
-                      if (practitioner.id === appointment.practitionerId)
+                      if (
+                        practitioner.id.toString() == appointment.practitionerId
+                      )
                         return practitioner.firstName;
                     })}
                   </Typography>

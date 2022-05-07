@@ -5,8 +5,9 @@ import {
   availabilitiesSelectors,
 } from 'store/availabilities';
 import { addAppointment } from 'store/appointments';
-import { formatDateRange } from 'utils/date';
+import { formatDateRange, Practitioner, Patient } from 'utils/date';
 import { useFormik } from 'formik';
+import * as Yup from 'yup';
 import {
   FormControl,
   InputLabel,
@@ -15,10 +16,12 @@ import {
   Button,
 } from '@material-ui/core';
 
-const Yup = require('yup');
-const AppointmentForm = (props) => {
+type Props = {
+  practitioners: Practitioner[];
+  patients: Patient[];
+};
+const AppointmentForm = ({ practitioners, patients }: Props) => {
   const dispatch = useDispatch();
-  const { practitioners, patients } = props;
   const availabilities = useSelector((state) =>
     availabilitiesSelectors.selectAll(state.availabilities),
   );
@@ -30,9 +33,7 @@ const AppointmentForm = (props) => {
     practitionerId: Yup.number()
       .moreThan(0, 'Select a Practitioner')
       .required('Practitioner is required'),
-    availability: Yup.string('Select an Availability').required(
-      'Availability is required',
-    ),
+    availability: Yup.string().required('Availability is required'),
   });
   const formik = useFormik({
     initialValues: {
