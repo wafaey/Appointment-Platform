@@ -5,6 +5,7 @@ import {
   availabilitiesSelectors,
 } from 'store/availabilities';
 import { addAppointment } from 'store/appointments';
+import { formatDateRange } from 'utils/date';
 import { useFormik } from 'formik';
 import {
   FormControl,
@@ -23,19 +24,21 @@ const AppointmentForm = (props) => {
   );
 
   const validationSchema = Yup.object().shape({
-    patientId: Yup.number('Select a Patient').required('Patient is required'),
-    practitionerId: Yup.number('Select a Practitioner').required(
-      'Practitioner is required',
-    ),
+    patientId: Yup.number()
+      .moreThan(0, 'Select a Patient')
+      .required('Patient is required'),
+    practitionerId: Yup.number()
+      .moreThan(0, 'Select a Practitioner')
+      .required('Practitioner is required'),
     availability: Yup.string('Select an Availability').required(
       'Availability is required',
     ),
   });
   const formik = useFormik({
     initialValues: {
-      practitionerId: null,
-      patientId: null,
-      availability: null,
+      practitionerId: 0,
+      patientId: 0,
+      availability: '',
     },
     validationSchema: validationSchema,
     onSubmit: (values) => {
@@ -128,7 +131,10 @@ const AppointmentForm = (props) => {
               {availabilities.map((availability, id) => {
                 return (
                   <MenuItem key={id} value={JSON.stringify(availability)}>
-                    {availability.startDate + '-' + availability.endDate}
+                    {formatDateRange({
+                      from: new Date(availability.startDate),
+                      to: new Date(availability.endDate),
+                    })}
                   </MenuItem>
                 );
               })}

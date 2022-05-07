@@ -6,6 +6,7 @@ import Section from 'components/Section';
 import AllTasks from 'components/AllTasks';
 import { getPractitioners, practitionersSelectors } from 'store/practitioners';
 import { getPatients, patientsSelectors } from 'store/patients';
+import { getAppointments, appointmentsSelectors } from 'store/appointments';
 
 const AppointmentsPage = () => {
   const dispatch = useDispatch();
@@ -15,10 +16,13 @@ const AppointmentsPage = () => {
   const patients = useSelector((state) =>
     patientsSelectors.selectAll(state.patients),
   );
-
+  const appointments = useSelector((state) =>
+    appointmentsSelectors.selectAll(state.appointments),
+  );
   useEffect(() => {
     dispatch(getPractitioners());
     dispatch(getPatients());
+    dispatch(getAppointments());
   }, []);
   return (
     <div className="appointment page">
@@ -68,7 +72,10 @@ const AppointmentsPage = () => {
           title="Appointment List"
           className="appointment__list"
         >
-          <AppointmentList />
+          <AppointmentList
+            appointments={appointments}
+            practitioners={practitioners}
+          />
         </Section>
       </div>
     </div>
