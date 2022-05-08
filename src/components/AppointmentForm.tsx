@@ -62,7 +62,7 @@ const AppointmentForm = ({ practitioners, patients }: Props) => {
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
-        <div className="appointmentInputs">
+        <div className="appointmentInputs" datacy="appointment-form">
           <FormControl variant="outlined">
             <InputLabel id="demo-simple-select-outlined-label">
               Practitioner

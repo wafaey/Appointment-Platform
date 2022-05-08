@@ -47,7 +47,7 @@ const AppointmentList = ({ appointments, practitioners }: Props) => {
           }}
         ></input>
       </div>
-      <List className="timeSlots" datacy="timeslot-list">
+      <List className="timeSlots" datacy="appointment-list">
         {filteredAppointments.map((appointment) => (
           <Card
             key={appointment.id}
